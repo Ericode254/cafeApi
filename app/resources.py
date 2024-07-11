@@ -32,7 +32,7 @@ class StudentApi(Resource):
     def get(self, user):
         student = Student.query.filter_by(user_name=user).first()
 
-        return student
+        return student, 201
 
 
 @ns.route("/lecturers")
