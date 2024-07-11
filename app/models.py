@@ -18,7 +18,7 @@ class Lecturer(db.Model):
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    event = db.relationship("Event", back_populates="lecturer")
+    events = db.relationship("Event", backref="event")
 
 
 class Event(db.Model):
@@ -26,8 +26,6 @@ class Event(db.Model):
     title = db.Column(db.String, nullable=False)
     venue = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
-    start_time = db.Column(db.String, nullable=False)
-    end_time = db.Column(db.String, nullable=False)
-    lecturer_id = db.Column(db.ForeignKey("lecturer.id"))
-
-    lecturer = db.relationship("Lecturer", back_populates="event")
+    start_time = db.Column(db.Integer, nullable=False)
+    end_time = db.Column(db.Integer, nullable=False)
+    lecturer_id = db.Column(db.Integer, db.ForeignKey("lecturer.id"))

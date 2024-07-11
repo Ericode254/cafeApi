@@ -64,7 +64,7 @@ class StudentApi(Resource):
 
 
 @ns.route("/events")
-class StudentListApi(Resource):
+class EventListApi(Resource):
     @ns.marshal_list_with(event_model)
     def get(self):
         return Event.query.all()
@@ -80,3 +80,12 @@ class StudentListApi(Resource):
         db.session.add(event)
         db.session.commit()
         return event, 201
+
+
+@ns.route("/events/<int:time>")
+class EventApi(Resource):
+    def delete(self, time):
+        deleted_events = Event.query.filter(Event.end_time < time)
+        db.session.delete(deleted_events)
+        db.session.commit()
+        return {}, 201
