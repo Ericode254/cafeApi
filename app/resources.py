@@ -36,7 +36,7 @@ class StudentApi(Resource):
 
 
 @ns.route("/lecturers")
-class StudentListApi(Resource):
+class LecturerListApi(Resource):
     @ns.marshal_list_with(lecturer_model)
     def get(self):
         return Lecturer.query.all()
@@ -87,5 +87,14 @@ class EventApi(Resource):
     def delete(self, time):
         deleted_events = Event.query.filter(Event.end_time < time)
         db.session.delete(deleted_events)
+        db.session.commit()
+        return {}, 201
+
+
+@ns.route("/events/<string:email>")
+class EventApi(Resource):
+    def delete(self, email):
+        delete_event = Event.query.filter_by(email="email").first();
+        db.session.delete(delete_event)
         db.session.commit()
         return {}, 201
