@@ -8,7 +8,7 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sqlite3'
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///cafe.db'
 
     api.init_app(app)
     db.init_app(app)
